@@ -82,7 +82,7 @@ body {
     color: var(--bgColor);
 }
 
-#hashtag {
+.hashtag {
     position: relative;
     padding-bottom: 20px;
     color: var(--accentColor);
