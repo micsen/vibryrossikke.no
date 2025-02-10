@@ -1,0 +1,87 @@
+<!--wss://websocket.ericbetts.dev-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Door Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        #door-status {
+            margin: 0 auto;
+            width: 50%;
+        }
+        p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ws = new WebSocket("wss://websocket.ericbetts.dev");
+            ws.onopen = function() {
+                console.log("Connected");
+                ws.send(JSON.stringify({action:"subscribe",path:"lockStatus"}));
+                setInterval(function() {
+                    ws.send(JSON.stringify({action:"ping"}));
+                }, 5000);
+            };
+            ws.onmessage = function(e) {
+                console.log(e.data);
+                try {
+                    data = JSON.parse(e.data);
+                    relays = data.relayState;
+                    inputs = data.inputState;
+
+                    // Door 1
+                    document.getElementById("door1-lock-relay").style.color = relays[0] ? "green" : "red";
+                    document.getElementById("door1-door-sensor").style.color = inputs[0] ? "green" : "red";
+                    document.getElementById("door1-open-button").style.color = inputs[1] ? "green" : "red";
+                    
+                    // Door 2
+                    document.getElementById("door2-lock-relay").style.color = relays[3] ? "green" : "red";
+                    document.getElementById("door2-door-sensor").style.color = inputs[2] ? "green" : "red";
+                    document.getElementById("door2-open-button").style.color = inputs[3] ? "green" : "red";
+                    document.getElementById("door1-lock-relay").innerText = relays[0] ? "Unlocked" : "Locked";
+                    document.getElementById("door1-door-sensor").innerText = inputs[0] ? "Closed" : "Open";
+                    document.getElementById("door1-open-button").innerText = inputs[1] ? "Pressed" : "Not pressed";
+
+                    // Door 2
+                    document.getElementById("door2-lock-relay").innerText = relays[3] ? "Unlocked" : "Locked";
+                    document.getElementById("door2-door-sensor").innerText = inputs[2] ? "Closed" : "Open";
+                    document.getElementById("door2-open-button").innerText = inputs[3] ? "Pressed" : "Not pressed";
+                } catch (error) {
+                    console.log("Error: " + error);
+                    
+                }
+            };
+            ws.onclose = function() {
+                console.log("Disconnected");
+            };
+            ws.onerror = function(e) {
+                console.log("Error: " + e);
+            };
+        });
+    </script>
+</head>
+<body>
+    <h1>Midlertidig Door status</h1>
+
+    <div id="door-status">
+        <p>Door 1 Lock Relay: <span id="door1-lock-relay">Unknown</span></p>
+        <p>Door 1 Door sensor: <span id="door1-door-sensor">Unknown</span></p>
+        <p>Door 1 Open button: <span id="door1-open-button">Unknown</span></p>
+        <!-- Door 2 -->
+        <p>Door 2 Lock Relay: <span id="door2-lock-relay">Unknown</span></p>
+        <p>Door 2 Door sensor: <span id="door2-door-sensor">Unknown</span></p>
+        <p>Door 2 Open button: <span id="door2-open-button">Unknown</span></p>
+    </div>
+</body>
+</html>
