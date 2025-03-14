@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Loading...</title>
+        <title>Elsker Karaoke...</title>
         <style>
             body {
                 background-color: #121212;
@@ -39,10 +39,15 @@
 
     <body>
         <div class="spinner"></div>
-        <div class="message">
-            <h1>Redirecting...</h1>
+        <div class="message" style="display: none;">
+            <h1>This takes longer than usual are you sure the venue is open?</h1>
+            <p>If you have the password you can set the redirect up <a href="/admin.html">By clicking here</a></p>
         </div>
         <script>
+            setTimeout(() => {
+                document.querySelector('.spinner').style.display = 'none'
+                document.querySelector('.message').style.display = 'block'
+            }, 10000)
             const socket = new WebSocket('wss://websocket.ericbetts.dev')
             const sha256OfPassword = "a70a82628f334c23ff5a0ab0dbc086725ec3c56d3b5745024d6cd4d751a3213d"
 
