@@ -39,9 +39,13 @@
 
     <body>
         <div class="spinner"></div>
+        <div class="message">
+            <h1>Redirecting...</h1>
+        </div>
         <script>
             const socket = new WebSocket('wss://websocket.ericbetts.dev')
             const sha256OfPassword = "a70a82628f334c23ff5a0ab0dbc086725ec3c56d3b5745024d6cd4d751a3213d"
+
             socket.addEventListener('open', function (event) {
                 console.log('Connected to the WebSocket server')
                 const subscription = {
