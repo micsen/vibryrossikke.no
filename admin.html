@@ -60,26 +60,18 @@
 
                 let interval = null
                 document.addEventListener('DOMContentLoaded', function () {
+     document.getElementById("counter").textContent = "aa"
 var w
 if(typeof(Worker) !== "undefined") {
     if(typeof(w) == "undefined") {
       w = new Worker("worker.js");
       w.postMessage({
-path: "demo",
-url: "test"
-})
-
-
-document.getElementById("counter").textContent = "A"
-w.onmessage = function(event) {
-document.getElementById("counter").textContent = event
-
-}
-
-document.getElementById("counter").textContent = "B"
-
+        path: "demo",
+        url: "test"
+      })
+      document.getElementById("counter").textContent = "A"
+      document.getElementById("counter").textContent = "B"
     }
-
 }
 
 
