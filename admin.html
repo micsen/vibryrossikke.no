@@ -70,12 +70,19 @@ if(typeof(Worker) !== "undefined") {
 path: "demo",
 url: "test"
 })
-    }
 
+
+document.getElementById("counter").textContent = "A"
 w.onmessage = function(event) {
 document.getElementById("counter").textContent = event
 
 }
+
+document.getElementById("counter").textContent = "B"
+
+    }
+
+
 }
 
 
