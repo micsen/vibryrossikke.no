@@ -71,6 +71,11 @@ path: "demo",
 url: "test"
 })
     }
+
+w.onmessage = function(event) {
+document.getElementById("counter").textContent = event
+
+}
 }
 
 
@@ -113,7 +118,7 @@ url: "test"
                         localStorage.setItem('url', url)
                         const formContainer = document.querySelector('.form-container')
                         formContainer.innerHTML = `<p>Vibryrossikke.no will forward the user to ${url}</p>`
-                        interval = setInterval(() => {
+                        /*interval = setInterval(() => {
                             fetch(`https://sockethook.ericbetts.dev/hook/${password}`, {
                                 method: 'POST',
                                 headers: {
@@ -129,7 +134,7 @@ url: "test"
                                     console.error('Error:', error)
                                 })
                         }, 2000)
-                    })
+                    })*/
 
 
                     document.getElementById("password").addEventListener('input', function (event) {
