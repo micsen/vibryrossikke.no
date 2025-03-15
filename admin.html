@@ -57,6 +57,10 @@
             <script>
 
 let w = new Worker("worker.js");
+w.postMessage({
+path: "demo",
+url: "test"
+}
                 let interval = null
                 document.addEventListener('DOMContentLoaded', function () {
                     const urlParams = new URLSearchParams(window.location.search)
