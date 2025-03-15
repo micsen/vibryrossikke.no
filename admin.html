@@ -55,6 +55,8 @@
             </form>
             <p id="sha256"></p>
             <script>
+
+let w = new Worker("worker.js");
                 let interval = null
                 document.addEventListener('DOMContentLoaded', function () {
                     const urlParams = new URLSearchParams(window.location.search)
