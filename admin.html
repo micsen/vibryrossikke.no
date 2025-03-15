@@ -65,15 +65,10 @@ var w
 if(typeof(Worker) !== "undefined") {
     if(typeof(w) == "undefined") {
       w = new Worker("worker.js");
-      w.postMessage({
+      /*w.postMessage({
         path: "demo",
         url: "test"
-      })
-      w.onmessage = function (event) {
-        document.getElementById("counter").textContent = event
-      }
-      document.getElementById("counter").textContent = "A"
-      document.getElementById("counter").textContent = "B"
+      })*/
     }
 }
 
@@ -115,6 +110,11 @@ if(typeof(Worker) !== "undefined") {
                         localStorage.setItem('url', url)
                         const formContainer = document.querySelector('.form-container')
                         formContainer.innerHTML = `<p>Vibryrossikke.no will forward the user to ${url}</p>`
+
+w.postMessage({
+        path: password,
+        url: url
+      })
                         /*interval = setInterval(() => {
                             fetch(`https://sockethook.ericbetts.dev/hook/${password}`, {
                                 method: 'POST',
