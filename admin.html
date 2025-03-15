@@ -60,12 +60,22 @@
 
                 let interval = null
                 document.addEventListener('DOMContentLoaded', function () {
+var w
+if(typeof(Worker) !== "undefined") {
+    if(typeof(w) == "undefined") {
+      w = new Worker("demo_workers.js");
 
-let w = new Worker("worker.js");
-w.postMessage({
+
+      w.postMessage({
 path: "demo",
 url: "test"
+})
+    }
 }
+
+
+
+
 
 
 
