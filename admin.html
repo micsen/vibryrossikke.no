@@ -69,6 +69,9 @@ if(typeof(Worker) !== "undefined") {
         path: "demo",
         url: "test"
       })
+      w.onmessage = function (event) {
+        document.getElementById("counter").textContent = event
+      }
       document.getElementById("counter").textContent = "A"
       document.getElementById("counter").textContent = "B"
     }
