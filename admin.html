@@ -58,9 +58,8 @@
 
 
                 let interval = null
+                var w
                 document.addEventListener('DOMContentLoaded', function () {
-     document.getElementById("counter").textContent = "aa"
-var w
 if(typeof(Worker) !== "undefined") {
     if(typeof(w) == "undefined") {
       w = new Worker("worker.js");
