@@ -2,16 +2,13 @@ var path
 var url
 var counter
 
-self.onmessage = function(event) {
-    url = event.data.url;
-    path = event.data.path;
-
-    
-};
-
+self.onmessage = function (event) {
+    url = event.data.url
+    path = event.data.path
+}
 
 function sendPostRequest() {
-if (url && path) {
+    if (url && path) {
         fetch(`https://sockethook.ericbetts.dev/hook/${path}`, {
             method: 'POST',
             mode: "no-cors",
@@ -20,11 +17,10 @@ if (url && path) {
             },
             body: JSON.stringify({ url: url })
         })
-        .then(data => console.log('Response:', data))
-        .catch(error => console.error('Error:', error));
+            .then(data => console.log('Response:', data))
+            .catch(error => console.error('Error:', error))
     }
-counter ++
-postMessage(counter)
+    counter++
+    postMessage(counter)
 }
-
-    setInterval(sendPostRequest, 2000);
+setInterval(sendPostRequest, 2000)

@@ -53,37 +53,14 @@
                 <input id="url" type="text" placeholder="Enter a URL" required>
                 <input type="submit" value="Start forwarding users">
             </form>
-            <p id="sha256"></p>
             <script>
-
-
                 let interval = null
                 var w
                 document.addEventListener('DOMContentLoaded', function () {
-if(typeof(Worker) !== "undefined") {
-    if(typeof(w) == "undefined") {
-      w = new Worker("worker.js");
-      /*w.postMessage({
-        path: "demo",
-        url: "test"
-      })*/
-    }
-}
-
-
-
-
-
-
-
-
-                    const urlParams = new URLSearchParams(window.location.search)
-                    const sha256Display = document.getElementById('sha256')
-
-                    if (urlParams.get('debug') === '1') {
-                        sha256Display.style.display = 'block'
-                    } else {
-                        sha256Display.style.display = 'none'
+                    if (typeof (Worker) !== "undefined") {
+                        if (typeof (w) == "undefined") {
+                            w = new Worker("worker.js")
+                        }
                     }
 
                     const storedPassword = localStorage.getItem('password')
@@ -92,11 +69,9 @@ if(typeof(Worker) !== "undefined") {
                     if (storedPassword) {
                         document.getElementById('password').value = storedPassword
                     }
-
                     if (storedUrl) {
                         document.getElementById('url').value = storedUrl
                     }
-
 
                     document.querySelector('form').addEventListener('submit', function (event) {
                         event.preventDefault()
@@ -109,44 +84,10 @@ if(typeof(Worker) !== "undefined") {
                         const formContainer = document.querySelector('.form-container')
                         formContainer.innerHTML = `<p>Vibryrossikke.no will forward the user to ${url}</p>`
 
-w.postMessage({
-        path: password,
-        url: url
-      })
-                        /*interval = setInterval(() => {
-                            fetch(`https://sockethook.ericbetts.dev/hook/${password}`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ url: url }),
-                                mode: "no-cors"
-                            })
-                                .then(data => {
-                                    console.log('Success:', data)
-                                })
-                                .catch((error) => {
-                                    console.error('Error:', error)
-                                })
-                        }, 2000)*/
-                    })
-
-
-                    document.getElementById("password").addEventListener('input', function (event) {
-                        const password = event.target.value
-                        const sha256Display = document.getElementById('sha256')
-                        const sha = ""
-                        if (password) {
-                            crypto.subtle.digest('SHA-256', new TextEncoder().encode(password)).then(hashBuffer => {
-                                const hashArray = Array.from(new Uint8Array(hashBuffer))
-                                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
-                                sha256Display.textContent = `SHA-256: ${hashHex}`
-                            })
-                        } else {
-                            sha256Display.textContent = ''
-                        }
-
-
+                        w.postMessage({
+                            path: password,
+                            url: url
+                        })
                     })
                 });
             </script>
