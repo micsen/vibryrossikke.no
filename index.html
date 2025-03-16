@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!--https://sockethook.ericbetts.dev/-->
 
     <head>
         <meta charset="UTF-8">
@@ -12,6 +11,14 @@
                 color: #ffffff;
             }
 
+            .spinnerContainer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+
             .spinner {
                 border: 16px solid #424242;
                 border-top: 16px solid #bb86fc;
@@ -20,9 +27,7 @@
                 height: 120px;
                 animation: spin 2s linear infinite;
                 position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+
             }
 
             @keyframes spin {
@@ -38,7 +43,9 @@
     </head>
 
     <body>
-        <div class="spinner"></div>
+        <div class="spinnerContainer">
+            <div class="spinner"></div>
+        </div>
         <div class="message" style="display: none;">
             <h1>This takes longer than usual are you sure the venue is open?</h1>
             <p>If you have the password you can set the redirect up <a href="/admin.html">By clicking here</a></p>
@@ -67,14 +74,6 @@
                     window.location.href = data.url
                 }
             })
-
-            socket.addEventListener('close', function (event) {
-                console.log('Disconnected from the WebSocket server')
-            })
-
-            socket.addEventListener('error', function (event) {
-                console.error('WebSocket error: ', event)
-            });
         </script>
     </body>
 
